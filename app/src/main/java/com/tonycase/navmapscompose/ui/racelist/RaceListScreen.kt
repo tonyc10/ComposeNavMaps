@@ -25,8 +25,14 @@ import androidx.navigation.compose.composable
 import com.tonycase.navmapscompose.repositories.Fixtures
 import com.tonycase.navmapscompose.ui.RacesTitle
 import com.tonycase.navmapscompose.ui.RaceAppScreen
-import com.tonycase.navmapscompose.ui.theme.NavMapsComposeDemoTheme
+import com.tonycase.navmapscompose.ui.theme.RaceAppTheme
 
+/**
+ * Initialization of Race List screen within Nav framework.
+ * Callbacks for Nav with the rest of app included as parameters.
+ *
+ * Get ViewModel from hilt & collect its state for Screen.
+ */
 fun NavGraphBuilder.raceListScreen(
    onRaceChosen: (String) -> Unit,
    onNoAuth: () -> Unit
@@ -127,7 +133,7 @@ private fun RaceItem(
 @Composable
 fun RaceListScreenPreview() {
    val races = Fixtures.fakeRaceList()
-   NavMapsComposeDemoTheme {
+   RaceAppTheme {
       RaceListScreen(
          uiState = RaceListUiState(
             loggedIn = true,

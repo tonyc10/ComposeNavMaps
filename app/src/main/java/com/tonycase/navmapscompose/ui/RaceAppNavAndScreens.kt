@@ -1,5 +1,4 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.tonycase.navmapscompose.ui
 
 import androidx.compose.foundation.layout.padding
@@ -36,32 +35,58 @@ import com.tonycase.navmapscompose.ui.racelist.raceListScreen
 import com.tonycase.navmapscompose.ui.racemap.raceMapScreen
 
 /**
- * Enumeration of all the screens in the app, with static information to build their toolbars.
+ * Enumeration of all screens in the app, with title and actions for their toolbars.
  */
 enum class RaceAppScreen(
    val toolbarTitle: String,
-   val toolbarActions: List<Action> = emptyList()
+   val toolbarToolbarActions: List<ToolbarAction> = emptyList()
 ) {
-   Login("Login"),
-   RaceList("Race List", listOf(Action.About, Action.Profile)),
-   Details("Race Details", listOf(Action.Leaderboard)),
-   Map("Race Map", listOf(Action.Leaderboard)),
-   Profile("Profile"),
-   About("About"),
-   Leaderboard("Leaderboard");
+   Login(
+      "Login"
+   ),
+   RaceList(
+      "Race List",
+      listOf(ToolbarAction.About, ToolbarAction.Profile)
+   ),
+   Details(
+      "Race Details",
+      listOf(ToolbarAction.Leaderboard)
+   ),
+   Map(
+      "Race Map",
+      listOf(ToolbarAction.Leaderboard)
+   ),
+   Profile(
+      "Profile"
+   ),
+   About(
+      "About"
+   ),
+   Leaderboard(
+      "Leaderboard"
+   );
 
    val node = name
 }
 
 /**
- * Enumeration of all Actions available from the toolbar, with their associated icons.
+ * Enumeration of all actions available from the toolbar, and their icons.
  */
-enum class Action(val icon: ImageVector) {
-   About(Icons.Filled.Info),
-   Profile(Icons.Filled.Person),
-   Leaderboard(Icons.Filled.Leaderboard)
+enum class ToolbarAction(val icon: ImageVector) {
+   About(
+      Icons.Filled.Info
+   ),
+   Profile(
+      Icons.Filled.Person
+   ),
+   Leaderboard(
+      Icons.Filled.Leaderboard
+   )
 }
 
+/**
+ * The base scaffold with App bar, and all screens initialized within the NavHost/navController.
+ */
 @Composable
 fun RootScreenAndNav(
    navController: NavHostController = rememberNavController()
@@ -83,7 +108,7 @@ fun RootScreenAndNav(
          startDestination = RaceList.node,
          modifier = Modifier.padding(it)
       ) {
-         // Declaration of all the screens, with their non-toolbar nav actions.
+         // Initialization of each screen, defining all non-toolbar nav actions.
          raceListScreen(
             onNoAuth = onNoAuth,
             onRaceChosen = { raceKey -> navController.navigate("${RaceAppScreen.Details.node}/${raceKey}/") }
@@ -109,14 +134,16 @@ private fun AppBar(
    backStackEntry: NavBackStackEntry?
 ) {
    val backNavAvailable = currentScreen !in listOf(RaceList, Login)
-   fun Action.onClick(): () -> Unit  = when (this) {
-      Action.About -> {
+
+   // Set up navigation to take for toolbar actions
+   fun ToolbarAction.onClick(): () -> Unit  = when (this) {
+      ToolbarAction.About -> {
          { launchAbout(navController) }
       }
-      Action.Profile -> {
+      ToolbarAction.Profile -> {
          { launchProfile(navController) }
       }
-      Action.Leaderboard -> {
+      ToolbarAction.Leaderboard -> {
          {
             launchLeaderboard(
                navController,
@@ -143,7 +170,7 @@ private fun AppBar(
          }
       },
       actions = {
-         currentScreen.toolbarActions.forEach { action ->
+         currentScreen.toolbarToolbarActions.forEach { action ->
             IconButton(onClick = action.onClick()) {
                Icon(
                   imageVector = action.icon,

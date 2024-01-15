@@ -21,7 +21,7 @@ import com.tonycase.navmapscompose.domain.User
 import com.tonycase.navmapscompose.repositories.Fixtures
 import com.tonycase.navmapscompose.ui.RaceAppScreen
 import com.tonycase.navmapscompose.ui.RacesTitle
-import com.tonycase.navmapscompose.ui.theme.NavMapsComposeDemoTheme
+import com.tonycase.navmapscompose.ui.theme.RaceAppTheme
 
 fun NavGraphBuilder.profileScreen(
    onNoAuth: () -> Unit = { }
@@ -68,7 +68,7 @@ fun ProfileScreen(
 @Preview
 @Composable
 fun ProfilePreview() {
-   NavMapsComposeDemoTheme {
+   RaceAppTheme {
       ProfileScreen(Fixtures.fakeUser())
    }
 }

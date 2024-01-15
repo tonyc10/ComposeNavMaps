@@ -45,7 +45,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.tonycase.navmapscompose.ui.RaceAppScreen
 import com.tonycase.navmapscompose.ui.RacesTitle
-import com.tonycase.navmapscompose.ui.theme.NavMapsComposeDemoTheme
+import com.tonycase.navmapscompose.ui.theme.RaceAppTheme
 import kotlinx.coroutines.launch
 
 /**
@@ -208,7 +208,7 @@ fun PasswordField(
 @Preview
 @Composable
 fun LoginPreview() {
-   NavMapsComposeDemoTheme {
+   RaceAppTheme {
       LoginScreen(uiState = Credentials(login = "test1229@t.com", pwd = "test1234"))
    }
 }
